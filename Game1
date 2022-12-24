@@ -1,0 +1,38 @@
+function superPuzzle(arr) {
+    let steps = [];
+    let rows, columns;
+
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr[i].length; j++) {
+            if (arr[i][j] === 0) {
+                rows = i;
+                columns = j;
+                break;
+            }
+        }
+    }
+
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr[i].length; j++) {
+            if (arr[i][j] !== i * arr.length + j + 1) {
+                if (rows === i && (columns === j - 1 || columns === j + 1)) {
+                    steps.push(arr[i][j]);
+                    rows = i;
+                    columns = j;
+                } else if (columns === j && (rows === i - 1 || rows === i + 1)) {
+                    steps.push(arr[i][j]);
+                    rows = i;
+                    columns = j;
+                }
+            }
+        }
+    }
+    return steps;
+}
+let simpleExample = [
+    [1, 2, 3, 4],
+    [5, 0, 6, 8],
+    [9, 10, 7, 11],
+    [13, 14, 15, 12]
+];
+console.log(superPuzzle(simpleExample));
